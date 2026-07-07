@@ -1,8 +1,8 @@
 """
-Reply-Intent Classifier — powered by Grok (xAI).
+Reply-Intent Classifier — powered by Groq (fast inference, free tier).
 
-Grok's API is OpenAI-compatible, so we use the `openai` SDK pointed at
-xAI's base URL instead of OpenAI's.
+Groq's API is OpenAI-compatible, so we use the `openai` SDK pointed at
+Groq's base URL instead of OpenAI's.
 
 Approach: single few-shot prompt, not a trained ML model — dataset is
 small (60 examples), and intent depends on subtle phrasing, which an
@@ -50,12 +50,12 @@ FEW_SHOT_EXAMPLES = [
 
 
 def _get_client() -> OpenAI:
-    api_key = os.environ.get("XAI_API_KEY")
+    api_key = os.environ.get("GROQ_API_KEY")
     if not api_key:
         raise EnvironmentError(
-            "XAI_API_KEY not set. Add it to your .env file or export it in your shell."
+            "GROQ_API_KEY not set. Add it to your .env file or export it in your shell."
         )
-    return OpenAI(api_key=api_key, base_url="https://api.x.ai/v1")
+    return OpenAI(api_key=api_key, base_url="https://api.groq.com/openai/v1")
 
 
 def _build_user_prompt(reply_text: str) -> str:
@@ -77,14 +77,14 @@ def _extract_json(text: str) -> dict:
 
 def classify_reply(reply_text: str, client: OpenAI = None) -> dict:
     """
-    Classify a single creator reply using Grok.
+    Classify a single creator reply using Groq.
     Returns: {"intent": str, "confidence": float}
     """
     if client is None:
         client = _get_client()
 
     response = client.chat.completions.create(
-        model="grok-4-fast",  # swap to "grok-4" for higher quality if needed
+        model="openai/gpt-oss-20b",  # fast + free-tier friendly; good for simple 5-way classification
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": _build_user_prompt(reply_text)},
