@@ -48,16 +48,16 @@ def render_badge(intent: str):
 
 with st.sidebar:
     st.header("Setup")
-    key_present = bool(os.environ.get("XAI_API_KEY"))
+    key_present = bool(os.environ.get("GROQ_API_KEY"))
     if key_present:
-        st.success("XAI_API_KEY detected")
+        st.success("GROQ_API_KEY detected")
     else:
-        st.error("XAI_API_KEY not set")
-        st.caption("This app calls Grok via the xAI API. Set the key before classifying:")
-        st.code("export XAI_API_KEY=your-key-here", language="bash")
+        st.error("GROQ_API_KEY not set")
+        st.caption("This app calls Groq's API. Set the key before classifying:")
+        st.code("export GROQ_API_KEY=your-key-here", language="bash")
         st.caption("Or add it to a .env file in the project root.")
     st.divider()
-    st.caption("Classifier: Grok few-shot prompt (see classifier.py)")
+    st.caption("Classifier: Groq few-shot prompt (see classifier.py)")
     st.caption("Categories:")
     for label in LABELS:
         st.caption(f"\u2022 {label}")
@@ -79,7 +79,7 @@ with tab1:
         if not message.strip():
             st.warning("Please enter a message first.")
         else:
-            with st.spinner("Calling Grok..."):
+            with st.spinner("Calling Groq..."):
                 try:
                     result = classify_reply(message)
                     st.write("")
