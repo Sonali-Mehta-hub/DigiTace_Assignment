@@ -107,5 +107,5 @@ def classify_reply(reply_text: str, client: OpenAI = None) -> dict:
 if __name__ == "__main__":
     # quick smoke test — run this file directly to sanity check your setup
     sample = "What's your rate for this collaboration?"
-    print(f"Testing classifier with: {sample!r}")
+    print(f"Testing the classifier with: {sample!r}")
     print(classify_reply(sample))
