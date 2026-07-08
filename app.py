@@ -64,14 +64,14 @@ with st.sidebar:
 
 
 st.title("\U0001F50D Reply-Intent Classifier")
-st.caption("Classify a creator's DM/email reply into an outreach intent category — powered by Grok via an LLM prompt, not a locally trained model.")
+st.caption("Classify the creator's DM/email reply into an outreach intent category — powered by Grok via an LLM prompt, not a locally trained model.")
 
 tab1, tab2 = st.tabs(["Classify a Message", "Test Set Results"])
 
 with tab1:
     message = st.text_area(
         "Paste a creator reply",
-        placeholder='e.g. "What\'s your rate for a story post?"',
+        placeholder='e.g. "What is your price for a story post?"',
         height=120,
     )
 
