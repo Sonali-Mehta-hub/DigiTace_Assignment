@@ -37,12 +37,11 @@ def main():
     correct = 0
     confusion = defaultdict(lambda: defaultdict(int))  # confusion[actual][predicted] += 1
 
-    
 for row in test_set:
-    text, actual = row["text"], row["label"]
-    time.sleep(2)  # add this line — small delay to avoid rate limits
-    try:
-        result = classify_reply(text)
+        text, actual = row["text"], row["label"]
+        time.sleep(2)  # small delay to avoid rate limits
+        try:
+            result = classify_reply(text)
             predicted = result["intent"]
             confidence = result["confidence"]
         except Exception as e:
