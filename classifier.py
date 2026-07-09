@@ -19,26 +19,19 @@ load_dotenv()  # reads .env file into environment variables
 
 LABELS = ["interested", "not_interested", "pricing_query", "availability_query", "unclear"]
 
-SYSTEM_PROMPT = """You are an intent classifier for an influencer marketing agency.
-A brand reached out to a creator for a paid collaboration. The creator has replied.
-Classify the creator's reply into EXACTLY ONE of these 5 categories:
-
-- interested: creator clearly wants to move forward / accepts the collab
-- not_interested: creator declines or passes on the collab
-- pricing_query: creator's main focus is asking about budget, rate, payment, or compensation
-- availability_query: creator's main focus is asking about timeline, deadline, or scheduling
-- unclear: reply is vague, sarcastic, off-topic, or too ambiguous to confidently classify
-
-Rules:
-- If a message expresses interest AND asks about price/timeline, classify by the PRIMARY
-  ask - if dominated by a question about money, pick pricing_query; if dominated by a
-  question about dates/scheduling, pick availability_query.
-- Short, vague, non-committal replies ("k", "we'll see", "maybe") are unclear, not
-  not_interested - not_interested requires an explicit decline.
-
-Respond ONLY with a JSON object, no preamble, no markdown fences:
-{"intent": "<one of the 5 labels>", "confidence": <float between 0 and 1>}
-"""
+FEW_SHOT_EXAMPLES = [
+    ("Sure, I'm down. Just send over the content brief whenever you're ready.", "interested"),
+    ("hard pass, I don't do sponsored posts for supplement brands anymore", "not_interested"),
+    ("What's your rate card look like? Also is this a flat fee or performance based?", "pricing_query"),
+    ("when would you need me to film, is there a hard deadline?", "availability_query"),
+    ("lol okay we'll see", "unclear"),
+    ("k", "unclear"),
+    ("haha maybe, depends", "unclear"),
+    ("interesting 👀", "unclear"),
+    ("lol this is random but ok", "unclear"),
+    ("haha nice, anyway how's your day going", "unclear"),
+    ("lol who is this again", "unclear"),
+]
 
 FEW_SHOT_EXAMPLES = [
     ("Sure, I'm down. Just send over the content brief whenever you're ready.", "interested"),
@@ -46,6 +39,12 @@ FEW_SHOT_EXAMPLES = [
     ("What's your rate card look like? Also is this a flat fee or performance based?", "pricing_query"),
     ("when would you need me to film, is there a hard deadline?", "availability_query"),
     ("lol okay we'll see", "unclear"),
+    ("k", "unclear"),
+    ("haha maybe, depends", "unclear"),
+    ("interesting 👀", "unclear"),
+    ("lol this is random but ok", "unclear"),
+    ("haha nice, anyway how's your day going", "unclear"),
+    ("lol who is this again", "unclear"),
 ]
 
 
@@ -90,6 +89,7 @@ def classify_reply(reply_text: str, client: OpenAI = None) -> dict:
             {"role": "user", "content": _build_user_prompt(reply_text)},
         ],
         max_tokens=100,
+      temperature=0,
     )
 
     raw_text = response.choices[0].message.content
