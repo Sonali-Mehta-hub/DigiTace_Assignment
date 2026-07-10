@@ -37,7 +37,7 @@ def main():
     correct = 0
     confusion = defaultdict(lambda: defaultdict(int))  # confusion[actual][predicted] += 1
 
-for row in test_set:
+    for row in test_set:
         text, actual = row["text"], row["label"]
         time.sleep(2)  # small delay to avoid rate limits
         try:

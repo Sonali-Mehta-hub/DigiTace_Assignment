@@ -9,7 +9,7 @@ Two tabs:
 Run:
     streamlit run app.py
 """
-
+import textwrap
 import os
 import json
 import streamlit as st
@@ -333,9 +333,8 @@ with tab2:
             m3.metric("Total", data["total"])
 
         st.write("")
-
-        rows_html = ""
-        for row in data["predictions"]:
+rows_html = ""
+for row in data["predictions"]:
             correct = row["correct"]
             status_pill = (
                 '<span class="rt-pill" style="background:#22c55e;">\u2705 Correct</span>'
@@ -344,30 +343,21 @@ with tab2:
             )
             actual_color = INTENT_COLORS.get(row["actual"], "#6b7280")
             pred_color = INTENT_COLORS.get(row["predicted"], "#6b7280")
-            rows_html += f"""
-            <tr class="rt-row">
-                <td>{row['text']}</td>
-                <td><span class="rt-pill" style="background:{actual_color};">{row['actual']}</span></td>
-                <td><span class="rt-pill" style="background:{pred_color};">{row['predicted']}</span></td>
-                <td>{status_pill}</td>
-            </tr>
-            """
+            rows_html += (
+                f'<tr class="rt-row">'
+                f'<td>{row["text"]}</td>'
+                f'<td><span class="rt-pill" style="background:{actual_color};">{row["actual"]}</span></td>'
+                f'<td><span class="rt-pill" style="background:{pred_color};">{row["predicted"]}</span></td>'
+                f'<td>{status_pill}</td>'
+                f'</tr>'
+            )
 
-        table_html = f"""
-        <div class="fade-in" style="overflow-x:auto;">
-        <table class="rt-table">
-            <thead>
-                <tr>
-                    <th>Message</th>
-                    <th>Actual</th>
-                    <th>Predicted</th>
-                    <th>Result</th>
-                </tr>
-            </thead>
-            <tbody>
-                {rows_html}
-            </tbody>
-        </table>
-        </div>
-        """
-        st.markdown(table_html, unsafe_allow_html=True)
+table_html = (
+            '<div class="fade-in" style="overflow-x:auto;">'
+            '<table class="rt-table">'
+            '<thead><tr><th>Message</th><th>Actual</th><th>Predicted</th><th>Result</th></tr></thead>'
+            f'<tbody>{rows_html}</tbody>'
+            '</table>'
+            '</div>'
+        )
+st.markdown(table_html, unsafe_allow_html=True)

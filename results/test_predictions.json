@@ -1,0 +1,115 @@
+{
+  "accuracy": 0.9,
+  "correct": 9,
+  "total": 10,
+  "predictions": [
+    {
+      "text": "Definitely interested, this is exactly the kind of partnership I've been looking for.",
+      "actual": "interested",
+      "predicted": "interested",
+      "confidence": 0.98,
+      "correct": true
+    },
+    {
+      "text": "Sounds like a great fit, happy to move forward whenever you are.",
+      "actual": "interested",
+      "predicted": "interested",
+      "confidence": 0.97,
+      "correct": true
+    },
+    {
+      "text": "I'll pass, my manager already turned down a similar offer last month.",
+      "actual": "not_interested",
+      "predicted": "not_interested",
+      "confidence": 0.97,
+      "correct": true
+    },
+    {
+      "text": "Not for me, but feel free to check back in a few months.",
+      "actual": "not_interested",
+      "predicted": "not_interested",
+      "confidence": 0.97,
+      "correct": true
+    },
+    {
+      "text": "What are you offering for a 60-second dedicated video?",
+      "actual": "pricing_query",
+      "predicted": "pricing_query",
+      "confidence": 0.97,
+      "correct": true
+    },
+    {
+      "text": "Just curious what the payment terms look like, upfront or after posting?",
+      "actual": "pricing_query",
+      "predicted": "pricing_query",
+      "confidence": 0.97,
+      "correct": true
+    },
+    {
+      "text": "I have exams till the 15th, would that work with your posting schedule or is it too tight?",
+      "actual": "availability_query",
+      "predicted": "availability_query",
+      "confidence": 0.97,
+      "correct": true
+    },
+    {
+      "text": "Quick q, is this a one-time post or do you need ongoing content over a few weeks?",
+      "actual": "availability_query",
+      "predicted": "ERROR",
+      "confidence": 0.0,
+      "correct": false
+    },
+    {
+      "text": "eh maybe, not really sure what you're offering exactly",
+      "actual": "unclear",
+      "predicted": "unclear",
+      "confidence": 0.9,
+      "correct": true
+    },
+    {
+      "text": "k",
+      "actual": "unclear",
+      "predicted": "unclear",
+      "confidence": 0.95,
+      "correct": true
+    }
+  ],
+  "confusion_matrix": {
+    "interested": {
+      "interested": 2,
+      "not_interested": 0,
+      "pricing_query": 0,
+      "availability_query": 0,
+      "unclear": 0
+    },
+    "not_interested": {
+      "not_interested": 2,
+      "interested": 0,
+      "pricing_query": 0,
+      "availability_query": 0,
+      "unclear": 0
+    },
+    "pricing_query": {
+      "pricing_query": 2,
+      "interested": 0,
+      "not_interested": 0,
+      "availability_query": 0,
+      "unclear": 0
+    },
+    "availability_query": {
+      "availability_query": 1,
+      "ERROR": 1,
+      "interested": 0,
+      "not_interested": 0,
+      "pricing_query": 0,
+      "unclear": 0
+    },
+    "unclear": {
+      "unclear": 2,
+      "interested": 0,
+      "not_interested": 0,
+      "pricing_query": 0,
+      "availability_query": 0
+    }
+  }
+}
