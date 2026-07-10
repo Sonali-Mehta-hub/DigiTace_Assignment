@@ -181,7 +181,6 @@ The training rows aren't used to train a model — they're supplied to the LLM a
 ---
 
 ## License
-No license has been specified for this project yet. Add a `LICENSE` file (e.g. MIT) if you intend for others to reuse this code.
 
 
 This project was developed as part of the DigiTace AI/ML Challenge and is intended for educational and evaluation purposes.
