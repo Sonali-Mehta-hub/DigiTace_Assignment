@@ -10,7 +10,6 @@ Classify a creator's DM/email reply into an outreach intent category — powered
 
 ---
 
----
 ## Overview
 
 Talent and influencer agencies deal with a high volume of creator replies to outreach messages. Manually reading every reply to figure out whether a creator is interested, declining, asking about pricing, asking about availability, or just being vague is slow and doesn't scale.
