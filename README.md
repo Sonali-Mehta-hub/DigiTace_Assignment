@@ -1,4 +1,14 @@
-#  AI/ML Challenge – Reply Intent Classifier
+# 🔍 Reply-Intent Classifier
+
+Classify a creator's DM/email reply into an outreach intent category — powered by an LLM few-shot prompt via the **Groq API**, not a locally trained model.
+
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Groq](https://img.shields.io/badge/LLM-Groq%20API-F55036)](https://groq.com/)
+[![Status](https://img.shields.io/badge/Status-Active-brightgreen)]()
+[![License](https://img.shields.io/badge/License-Not%20specified-lightgrey)]()
+
+---
 
 ## Overview
 
