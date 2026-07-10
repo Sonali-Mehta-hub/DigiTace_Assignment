@@ -1,4 +1,4 @@
-# 🔍 Reply-Intent Classifier
+#  AI Powered Reply-Intent Classifier
 
 Classify a creator's DM/email reply into an outreach intent category — powered by an LLM few-shot prompt via the **Groq API**, not a locally trained model.
 
