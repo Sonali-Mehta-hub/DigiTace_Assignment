@@ -47,6 +47,15 @@ FEW_SHOT_EXAMPLES = [
     ("lol who is this again", "unclear"),
 ]
 
+SYSTEM_PROMPT = (
+    "You are an intent classifier for creator outreach replies. "
+    "Given a creator's reply, classify it into exactly one of these intents: "
+    "interested, not_interested, pricing_query, availability_query, unclear. "
+    "Respond ONLY with a JSON object in the form "
+    '{"intent": "<one of the labels above>", "confidence": <float between 0 and 1>}. '
+    "Do not include any other text, explanation, or markdown formatting."
+)
+
 
 def _get_client() -> OpenAI:
     api_key = os.environ.get("GROQ_API_KEY")
