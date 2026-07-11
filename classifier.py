@@ -45,6 +45,9 @@ FEW_SHOT_EXAMPLES = [
     ("lol this is random but ok", "unclear"),
     ("haha nice, anyway how's your day going", "unclear"),
     ("lol who is this again", "unclear"),
+    ("I'm free most weekends in June, let me know the shoot date.", "availability_query"),
+    ("Would need at least 2 weeks notice before filming.", "availability_query"),
+    ("Is there room to negotiate the rate or is it fixed?", "pricing_query"),
 ]
 
 SYSTEM_PROMPT = (
@@ -97,8 +100,9 @@ def classify_reply(reply_text: str, client: OpenAI = None) -> dict:
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": _build_user_prompt(reply_text)},
         ],
-        max_tokens=100,
-      temperature=0,
+        max_completion_tokens=300,   # room for reasoning tokens + final JSON
+        reasoning_effort="low",      # this is a simple 5-way classification, doesn't need deep reasoning
+        temperature=0,
     )
 
     raw_text = response.choices[0].message.content
