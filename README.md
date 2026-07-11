@@ -163,7 +163,7 @@ The training rows aren't used to train a model — they're supplied to the LLM a
 
 ## Test Result Images
 
-- Link: assets/images 
+- Path: assets/images/test_result.jpeg 
 
 ---
 
