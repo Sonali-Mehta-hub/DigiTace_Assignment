@@ -160,8 +160,10 @@ Confidence: 0.91
 The training rows aren't used to train a model — they're supplied to the LLM as few-shot examples inside the prompt.
 
 ---
-##Test Result Images
--Link:assets/images
+
+## Test Result Images
+
+- Link: assets/images 
 
 ---
 
@@ -185,11 +187,11 @@ The training rows aren't used to train a model — they're supplied to the LLM a
 ---
 
 ## Team member 
--Jaya Agarwal
--Priya Kumari
--Sonali Kumari
--Priti Kumari
--Khushi Kumari
+- Jaya Agarwal
+- Priya Kumari
+- Sonali Kumari
+- Priti Kumari
+- Khushi Kumari
 
 ## License
 
