@@ -1,13 +1,13 @@
 {
-  "accuracy": 0.9,
-  "correct": 9,
+  "accuracy": 1.0,
+  "correct": 10,
   "total": 10,
   "predictions": [
     {
       "text": "Definitely interested, this is exactly the kind of partnership I've been looking for.",
       "actual": "interested",
       "predicted": "interested",
-      "confidence": 0.98,
+      "confidence": 0.97,
       "correct": true
     },
     {
@@ -28,14 +28,14 @@
       "text": "Not for me, but feel free to check back in a few months.",
       "actual": "not_interested",
       "predicted": "not_interested",
-      "confidence": 0.97,
+      "confidence": 0.92,
       "correct": true
     },
     {
       "text": "What are you offering for a 60-second dedicated video?",
       "actual": "pricing_query",
       "predicted": "pricing_query",
-      "confidence": 0.97,
+      "confidence": 0.92,
       "correct": true
     },
     {
@@ -55,9 +55,9 @@
     {
       "text": "Quick q, is this a one-time post or do you need ongoing content over a few weeks?",
       "actual": "availability_query",
-      "predicted": "ERROR",
-      "confidence": 0.0,
-      "correct": false
+      "predicted": "availability_query",
+      "confidence": 0.9,
+      "correct": true
     },
     {
       "text": "eh maybe, not really sure what you're offering exactly",
@@ -97,8 +97,7 @@
       "unclear": 0
     },
     "availability_query": {
-      "availability_query": 1,
-      "ERROR": 1,
+      "availability_query": 2,
       "interested": 0,
       "not_interested": 0,
       "pricing_query": 0,
