@@ -9,7 +9,7 @@ Two tabs:
 Run:
     streamlit run app.py
 """
-
+import textwrap
 import os
 import json
 import streamlit as st
@@ -18,7 +18,191 @@ from classifier import classify_reply, LABELS
 
 load_dotenv()
 
-st.set_page_config(page_title="Reply-Intent Classifier", page_icon="\U0001F50D", layout="centered")
+st.set_page_config(
+    page_title="Reply-Intent Classifier",
+    page_icon="\U0001F50D",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    html, body, [class*="css"] {
+        font-family: 'Inter', sans-serif;
+        color: #f4fff6;
+    }
+
+    .stApp {
+        background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.16), transparent 26%),
+                    linear-gradient(135deg, #030704 0%, #07110b 45%, #0c1c12 100%);
+    }
+
+    [data-testid="stMain"] {
+        padding-top: 1.2rem;
+    }
+
+    .block-container {
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+    }
+
+    .hero-panel {
+        background: linear-gradient(135deg, rgba(10, 20, 14, 0.95), rgba(10, 31, 18, 0.86));
+        border: 1px solid rgba(34, 197, 94, 0.22);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255,255,255,0.04);
+        border-radius: 22px;
+        padding: 1.25rem 1.4rem;
+        margin-bottom: 1.2rem;
+        animation: fadeInUp 0.55s ease;
+    }
+
+    .hero-title {
+        font-size: 2.35rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        background: linear-gradient(90deg, #5eead4 0%, #4ade80 45%, #22c55e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.3rem;
+    }
+
+    .hero-subtitle {
+        color: #b7d8c3;
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 0.2rem;
+    }
+
+    .hero-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 0.6rem;
+        padding: 0.42rem 0.75rem;
+        border-radius: 999px;
+        border: 1px solid rgba(74, 222, 128, 0.35);
+        background: rgba(34, 197, 94, 0.12);
+        color: #baf7c8;
+        font-size: 0.82rem;
+        font-weight: 600;
+    }
+
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        border-radius: 18px !important;
+        border: 1px solid rgba(74, 222, 128, 0.18) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+        transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+        padding: 0.6rem;
+        background: rgba(5, 12, 8, 0.78);
+    }
+
+    div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+        box-shadow: 0 12px 30px rgba(34, 197, 94, 0.16);
+        transform: translateY(-2px);
+        border-color: rgba(74, 222, 128, 0.35) !important;
+    }
+
+    .stButton > button {
+        border-radius: 999px !important;
+        font-weight: 700 !important;
+        padding: 0.6rem 1.2rem !important;
+        background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%) !important;
+        color: white !important;
+        border: none !important;
+        transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+        box-shadow: 0 8px 18px rgba(34, 197, 94, 0.22) !important;
+    }
+
+    .stButton > button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 22px rgba(34, 197, 94, 0.3) !important;
+    }
+
+    .stTextArea textarea {
+        border-radius: 14px !important;
+        font-size: 0.95rem !important;
+        background: rgba(4, 10, 7, 0.95) !important;
+        border: 1px solid rgba(74, 222, 128, 0.28) !important;
+        color: #f4fff6 !important;
+    }
+
+    div[data-baseweb="tab-list"] {
+        gap: 8px;
+    }
+
+    button[data-baseweb="tab"] {
+        border-radius: 999px !important;
+        font-weight: 600 !important;
+        color: #cfe9d7 !important;
+        border: 1px solid rgba(74, 222, 128, 0.2) !important;
+        background: rgba(10, 18, 13, 0.9) !important;
+    }
+
+    button[data-baseweb="tab"][aria-selected="true"] {
+        background: linear-gradient(90deg, rgba(22, 163, 74, 0.9), rgba(34, 197, 94, 0.8)) !important;
+        color: white !important;
+    }
+
+    div[data-testid="stMetric"] {
+        background: linear-gradient(135deg, rgba(8, 18, 12, 0.95), rgba(10, 29, 16, 0.9));
+        border-radius: 14px;
+        padding: 1rem 1.2rem;
+        border: 1px solid rgba(74, 222, 128, 0.2);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #060b08 0%, #020503 100%);
+        border-right: 1px solid rgba(74, 222, 128, 0.2);
+    }
+
+    .fade-in {
+        animation: fadeIn 0.45s ease-in;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .rt-table { width: 100%; border-collapse: collapse; }
+    .rt-table th {
+        text-align: left;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #8bcca0;
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(74, 222, 128, 0.18);
+    }
+    .rt-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(74, 222, 128, 0.1);
+        font-size: 0.92rem;
+        vertical-align: top;
+        color: #deffe5;
+    }
+    .rt-row:hover td { background: rgba(34, 197, 94, 0.07); }
+    .rt-pill {
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: white;
+        display: inline-block;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 INTENT_COLORS = {
     "interested": "#22c55e",
@@ -29,64 +213,107 @@ INTENT_COLORS = {
 }
 
 
+INTENT_ICONS = {
+    "interested": "\u2728",
+    "not_interested": "\U0001F6AB",
+    "pricing_query": "\U0001F4B0",
+    "availability_query": "\U0001F4C5",
+    "unclear": "\u2753",
+}
+
+
 def render_badge(intent: str):
     color = INTENT_COLORS.get(intent, "#6b7280")
+    icon = INTENT_ICONS.get(intent, "\u2022")
     st.markdown(
         f"""
-        <span style="
+        <div class="fade-in" style="
+            display:inline-flex;
+            align-items:center;
+            gap:6px;
             background-color:{color};
             color:white;
-            padding:6px 14px;
+            padding:8px 16px;
             border-radius:999px;
             font-weight:600;
             font-size:14px;
-        ">{intent}</span>
+            box-shadow: 0 4px 10px {color}55;
+        ">{icon} {intent}</div>
         """,
         unsafe_allow_html=True,
     )
 
-
 with st.sidebar:
-    st.header("Setup")
+    st.markdown("### \u2699\ufe0f Setup")
     key_present = bool(os.environ.get("GROQ_API_KEY"))
     if key_present:
-        st.success("GROQ_API_KEY detected")
+        st.success("GROQ_API_KEY detected", icon="\u2705")
     else:
-        st.error("GROQ_API_KEY not set")
+        st.error("GROQ_API_KEY not set", icon="\u26a0\ufe0f")
         st.caption("This app calls Groq's API. Set the key before classifying:")
         st.code("export GROQ_API_KEY=your-key-here", language="bash")
         st.caption("Or add it to the .env file in the project root.")
+
     st.divider()
-    st.caption("Classifier: Groq few-shot prompt (see classifier.py)")
-    st.caption("Categories:")
+    st.markdown("### \U0001F9E0 Classifier")
+    st.caption("Groq few-shot prompt (see `classifier.py`)")
+
+    st.markdown("### \U0001F3F7\ufe0f Categories")
     for label in LABELS:
-        st.caption(f"\u2022 {label}")
+        color = INTENT_COLORS.get(label, "#6b7280")
+        st.markdown(
+            f"""<div style="display:flex;align-items:center;gap:8px;margin:4px 0;">
+                <span style="width:10px;height:10px;border-radius:50%;background:{color};"></span>
+                <span style="font-size:0.9rem;color:#334155;">{label}</span>
+            </div>""",
+            unsafe_allow_html=True,
+        )
 
 
-st.title("\U0001F50D Reply-Intent Classifier")
-st.caption("Classify the creator's DM/email reply into an outreach intent category — powered by Grok via an LLM prompt, not a locally trained model.")
 
-tab1, tab2 = st.tabs(["Classify a Message", "Test Set Results"])
+st.markdown(
+    """
+    <div class="hero-panel">
+        <div class="hero-title">🔍 Reply-Intent Classifier</div>
+        <div class="hero-subtitle">Classify a creator's DM or email reply into a clear outreach intent category with a polished, AI-assisted workflow.</div>
+        <div class="hero-chip">⚡ Live intent detection • Professional dark-green UI</div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+tab1, tab2 = st.tabs(["\U0001F4AC  Classify a Message", "\U0001F4CA  Test Set Results"])
+
+
 
 with tab1:
-    message = st.text_area(
-        "Paste a reply",
-        placeholder='e.g. "What is your price for a story post?"',
-        height=120,
-    )
+    with st.container(border=True):
+        message = st.text_area(
+            "Paste a reply",
+            placeholder='e.g. "What is your price for a story post?"',
+            height=120,
+        )
 
-    if st.button("Classify", type="primary", disabled=not key_present):
-        if not message.strip():
-            st.warning("Please enter the message first.")
-        else:
-            with st.spinner("Calling Groq..."):
-                try:
-                    result = classify_reply(message)
-                    st.write("")
-                    render_badge(result["intent"])
-                    st.metric("Confidence", f"{result['confidence']:.0%}")
-                except Exception as e:
-                    st.error(f"Classification failed: {e}")
+        col_btn, col_spacer = st.columns([1, 3])
+        with col_btn:
+            classify_clicked = st.button("\u26a1 Classify", type="primary", disabled=not key_present, use_container_width=True)
+
+        if classify_clicked:
+            if not message.strip():
+                st.warning("Please enter the message first.")
+            else:
+                with st.spinner("Calling Groq..."):
+                    try:
+                        result = classify_reply(message)
+                        st.write("")
+                        res_col1, res_col2 = st.columns([2, 1])
+                        with res_col1:
+                            st.caption("PREDICTED INTENT")
+                            render_badge(result["intent"])
+                        with res_col2:
+                            st.metric("Confidence", f"{result['confidence']:.0%}")
+                    except Exception as e:
+                        st.error(f"Classification failed: {e}")
 
 with tab2:
     results_path = "results/test_predictions.json"
@@ -99,11 +326,38 @@ with tab2:
         with open(results_path) as f:
             data = json.load(f)
 
-        st.metric("Test Set Accuracy", f"{data['accuracy']:.0%}", f"{data['correct']}/{data['total']} correct")
-        st.divider()
-        for row in data["predictions"]:
-            cols = st.columns([5, 2, 2, 1])
-            cols[0].write(row["text"])
-            cols[1].write(f"actual: **{row['actual']}**")
-            cols[2].write(f"pred: **{row['predicted']}**")
-            cols[3].write("\u2705" if row["correct"] else "\u274C")
+        with st.container(border=True):
+            m1, m2, m3 = st.columns(3)
+            m1.metric("Accuracy", f"{data['accuracy']:.0%}")
+            m2.metric("Correct", data["correct"])
+            m3.metric("Total", data["total"])
+
+        st.write("")
+rows_html = ""
+for row in data["predictions"]:
+            correct = row["correct"]
+            status_pill = (
+                '<span class="rt-pill" style="background:#22c55e;">\u2705 Correct</span>'
+                if correct
+                else '<span class="rt-pill" style="background:#ef4444;">\u274C Wrong</span>'
+            )
+            actual_color = INTENT_COLORS.get(row["actual"], "#6b7280")
+            pred_color = INTENT_COLORS.get(row["predicted"], "#6b7280")
+            rows_html += (
+                f'<tr class="rt-row">'
+                f'<td>{row["text"]}</td>'
+                f'<td><span class="rt-pill" style="background:{actual_color};">{row["actual"]}</span></td>'
+                f'<td><span class="rt-pill" style="background:{pred_color};">{row["predicted"]}</span></td>'
+                f'<td>{status_pill}</td>'
+                f'</tr>'
+            )
+
+table_html = (
+            '<div class="fade-in" style="overflow-x:auto;">'
+            '<table class="rt-table">'
+            '<thead><tr><th>Message</th><th>Actual</th><th>Predicted</th><th>Result</th></tr></thead>'
+            f'<tbody>{rows_html}</tbody>'
+            '</table>'
+            '</div>'
+        )
+st.markdown(table_html, unsafe_allow_html=True)

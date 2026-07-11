@@ -19,34 +19,39 @@ load_dotenv()  # reads .env file into environment variables
 
 LABELS = ["interested", "not_interested", "pricing_query", "availability_query", "unclear"]
 
-SYSTEM_PROMPT = """You are an intent classifier for an influencer marketing agency.
-A brand reached out to a creator for a paid collaboration. The creator has replied.
-Classify the creator's reply into EXACTLY ONE of these 5 categories:
-
-- interested: creator clearly wants to move forward / accepts the collab
-- not_interested: creator declines or passes on the collab
-- pricing_query: creator's main focus is asking about budget, rate, payment, or compensation
-- availability_query: creator's main focus is asking about timeline, deadline, or scheduling
-- unclear: reply is vague, sarcastic, off-topic, or too ambiguous to confidently classify
-
-Rules:
-- If a message expresses interest AND asks about price/timeline, classify by the PRIMARY
-  ask - if dominated by a question about money, pick pricing_query; if dominated by a
-  question about dates/scheduling, pick availability_query.
-- Short, vague, non-committal replies ("k", "we'll see", "maybe") are unclear, not
-  not_interested - not_interested requires an explicit decline.
-
-Respond ONLY with a JSON object, no preamble, no markdown fences:
-{"intent": "<one of the 5 labels>", "confidence": <float between 0 and 1>}
-"""
-
 FEW_SHOT_EXAMPLES = [
     ("Sure, I'm down. Just send over the content brief whenever you're ready.", "interested"),
     ("hard pass, I don't do sponsored posts for supplement brands anymore", "not_interested"),
     ("What's your rate card look like? Also is this a flat fee or performance based?", "pricing_query"),
     ("when would you need me to film, is there a hard deadline?", "availability_query"),
     ("lol okay we'll see", "unclear"),
+    ("k", "unclear"),
+    ("haha maybe, depends", "unclear"),
+    ("interesting 👀", "unclear"),
+    ("lol this is random but ok", "unclear"),
+    ("haha nice, anyway how's your day going", "unclear"),
+    ("lol who is this again", "unclear"),
+    ("I'm free most weekends in June, let me know the shoot date.", "availability_query"),
+    ("Would need at least 2 weeks notice before filming.", "availability_query"),
+    ("Is there room to negotiate the rate or is it fixed?", "pricing_query"),
+    ("Is this a one-off collab or would it run for multiple weeks?", "availability_query"),
+    ("Do you need this delivered as a single post or an ongoing series?", "availability_query"),
+    ("What are you offering for a 60-second dedicated video?", "pricing_query"),
+    ("What's on the table for a single Reels post?", "pricing_query"),
 ]
+
+SYSTEM_PROMPT = (
+    "You are an intent classifier for creator outreach replies. "
+    "Given a creator's reply, classify it into exactly one of these intents: "
+    "interested, not_interested, pricing_query, availability_query, unclear. "
+     "pricing_query is about cost, rate, or payment structure. "
+    "availability_query is about scheduling, timing, deadlines, or campaign duration/scope. "
+     "unclear means there is genuinely no signal about intent (e.g. one-word replies, jokes, small talk) — "
+    "not just because the reply is short or informally worded. "
+    "Respond ONLY with a JSON object in the form "
+    '{"intent": "<one of the labels above>", "confidence": <float between 0 and 1>}. '
+    "Do not include any other text, explanation, or markdown formatting."
+)
 
 
 def _get_client() -> OpenAI:
@@ -69,40 +74,45 @@ def _build_user_prompt(reply_text: str) -> str:
     )
 
 
+
 def _extract_json(text: str) -> dict:
-    """Strip markdown fences if the model adds them, then parse JSON."""
+    """Strip markdown fences if present, then pull out the first {...} JSON object
+    even if the model adds stray text before/after it."""
     cleaned = re.sub(r"```json|```", "", text).strip()
-    return json.loads(cleaned)
-
-
-def classify_reply(reply_text: str, client: OpenAI = None) -> dict:
+    match = re.search(r"\{.*\}", cleaned, re.DOTALL)
+    if not match:
+        raise ValueError(f"No JSON object found in model output: {text!r}")
+    return json.loads(match.group(0))
+ 
+ 
+def classify_reply(reply_text: str) -> dict:
+    """Classify a single creator reply into one of the LABELS.
+ 
+    Returns a dict like {"intent": "pricing_query", "confidence": 0.95}.
     """
-    Classify a single creator reply using Groq.
-    Returns: {"intent": str, "confidence": float}
-    """
-    if client is None:
-        client = _get_client()
-
+    client = _get_client()
+ 
     response = client.chat.completions.create(
         model="openai/gpt-oss-20b",  # fast + free-tier friendly; good for simple 5-way classification
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": _build_user_prompt(reply_text)},
         ],
-        max_tokens=100,
+        max_completion_tokens=300,   # room for reasoning tokens + final JSON
+        reasoning_effort="low",      # this is a simple 5-way classification, doesn't need deep reasoning
+        temperature=0,
     )
-
+ 
     raw_text = response.choices[0].message.content
     result = _extract_json(raw_text)
-
+ 
     if result.get("intent") not in LABELS:
         raise ValueError(f"Model returned invalid label: {result}")
-
+ 
     return {
         "intent": result["intent"],
         "confidence": float(result.get("confidence", 0.0)),
     }
-
 
 if __name__ == "__main__":
     # quick smoke test — run this file directly to sanity check your setup

@@ -1,76 +1,61 @@
-Thanks for reaching out! I'd love to collaborate on this campaign.,,,,,,,,interested
-I'm definitely interested. Please send me the next steps.,,,,,,,,interested
-This sounds like a great fit for my audience. Count me in!,,,,,,,,interested
-Let's connect and discuss the details ,,,,,,,,interested
-"Yes, I'm really excited to work with you on this! When would you like to get started?""",,,,,,,,interested
-I think this could work well for my audience.,,,,,,,,interested
-This aligns perfectly with my content.,,,,,,,,interested
-"hey this actually sounds really fun, i've been wanting to work with a skincare brand for a while now. count me in!",,,,,,,,interested
-"This aligns really well with my content niche, let's make it happen",,,,,,,,interested
-"omg yes! i love your last campaign with @glowbeauty, would be honored to collab",,,,,,,,interested
-"yesss this is so my vibe, let's gooo",,,,,,,,interested
-Oh my god is this real !! Amazing,,,,,,,,interested
-hey this sounds good for promotion of your product,,,,,,,,interested
-"Yes, I'd like to partner with your brand.",,,,,,,,interested
-i would love to hear the next steps.,,,,,,,,interested
-"Thank you for the offer, but I'm not taking on brand collaborations at the moment.",,,,,,,,not interested
-"I appreciate you reaching out, but I'll have to pass on this campaign.",,,,,,,,not interested
-"Thanks for thinking of me, but this opportunity isn't the right fit for my content.",,,,,,,,not interested
-"I'm so sorry, I've already signed another collaboration for this summer, so I won't be able to take this one.",,,,,,,,not interested
-"Hii, thank you so much, that means a lot! But I'm not available right now, sorry.",,,,,,,,not interested
-"Not a good fit for my page, best of luck finding someone though",,,,,,,,not interested
-"hard pass, I don't do sponsored posts for supplement brands anymore",,,,,,,,not interested
-Thanks but no thanks — I've had bad experiences with similar campaigns before.,,,,,,,,not interested
-This isn't something I am looking for right now.,,,,,,,,not interested
-I am  focusing on other projects at the moment.,,,,,,,,not interested
-"Thanks for thinking of me, but I'll have to pass on this one — doesn't align with what I'm focusing on right now.",,,,,,,,not interested
-I don't think my audience would connect with this.,,,,,,,,not interested
-I am bored with type of ads and videos,,,,,,,,not interested
-Can you please focus on solving problem than explaining theories,,,,,,,,not interested
-"No thank you, I am not taking on any sponsored content at the moment",,,,,,,,not interested
-Could you let me know the budget for this collaboration?,,,,,,,,pricing query
-What's the payment you're offering for this campaign?,,,,,,,,pricing query
-"Before I decide, can you share your pricing or compensation details?",,,,,,,,pricing query
-"That sounds great! Before I confirm, could you share what the budget looks like for this?",,,,,,,,pricing query
-Hey !!  How much does it cost??,,,,,,,,pricing query
-"Depends on the pay tbh, what's on the table?""",,,,,,,,pricing query
-Can you please share me the price of this product??,,,,,,,,pricing query
-"Hi, this sounds interesting! What kind of payment/compensation are you offering for this collaboration?",,,,,,,,pricing query
-"sounds interesting, what's the budget looking like for a single reel?",,,,,,,,pricing query
-This turn to be great product.Can i know pricing ??,,,,,,,,pricing query
-Sounds fun! Just want to check — what's the budget you have in mind for this,,,,,,,,pricing query
-Is there a budget allocated for influencers?,,,,,,,,pricing query
-What payment are you offering?,,,,,,,,pricing query
-Do you have a budget in mind?,,,,,,,,pricing query
-Could you let me know the financial terms?,,,,,,,,pricing query
-What dates are you planning to run the campaign?,,,,,,,,availability query
-When would you need the content to be posted?,,,,,,,,availability query
-Can you tell me the campaign timeline and deadlines?,,,,,,,,availability query
-"I might have a slot open in 2 weeks, does that work with your campaign schedule?",,,,,,,,availability query
-Can we push the posting date to next week? I have back to back shoots rn,,,,,,,,availability query
-Are we talking about posting this month or is there more lead time?,,,,,,,,availability query
-"I'd love to do this, but I'm free only from next month. Would it be possible to schedule it then",,,,,,,,availability query
-"Yes, I'd love to work with you! Could you let me know when we can schedule the collaboration",,,,,,,,availability query
-Do you ship internationally?,,,,,,,,availability query
-How does this promotion work?,,,,,,,,availability query
-Can you send me the ebook?,,,,,,,,availability query
-"I'd love to! Just let me know the exact dates, I want to make sure I'm free that week",,,,,,,,availability query
-Do you have a posting schedule in mind?,,,,,,,,availability query
-Is this campaign running next week or next month?,,,,,,,,availability query
-Will this product available outside india,,,,,,,,availability query
-Can you tell me a little more about the campaign?,,,,,,,,unclear
-Thanks for reaching out. I'd like to understand the details first.,,,,,,,,unclear
-Could you share some more information before I make a decision?,,,,,,,,unclear
-"hmm not sure yet, ping me later",,,,,,,,unclear
-lol okay we'll see,,,,,,,,unclear
-idk let me think about it,,,,,,,,unclear
-"I'm not sure yet, let me think about it and get back to you.",,,,,,,,unclear
-"Sorry, I'm not available right now — if things change, I'll definitely reach out to you",,,,,,,,unclear
-"Hmm interesting, let me see how things go on my end.",,,,,,,,unclear
-Can i get your address??,,,,,,,,unclear
-Watch the movie which i shared you day before yesterday,,,,,,,,unclear
-Is she your friend ??Really??,,,,,,,,unclear
-I'd need a few more details first.,,,,,,,,unclear
-Could you elaborate on the opportunity?,,,,,,,,unclear
-What exactly are you looking for?,,,,,,,,unclear
-I'd like to know more before deciding.,,,,,,,,
+text,label,split
+"hey this actually sounds really fun, i've been wanting to work with a skincare brand for a while now. count me in!",interested,train
+"omg yes! i love your last campaign with @glowbeauty, would be honored to collab 😊",interested,train
+"Sure, I'm down. Just send over the content brief whenever you're ready.",interested,train
+"This aligns really well with my content niche, let's make it happen!",interested,train
+"Yeah I'm interested, my audience would really vibe with this product tbh",interested,train
+"Absolutely, been waiting for a brand like this to reach out honestly.",interested,train
+"I'm in! Been using similar products for months so this feels genuine.",interested,train
+"Yes please, let's set this up. My followers ask about this stuff all the time.",interested,train
+"Definitely interested, this is exactly the kind of partnership I've been looking for.",interested,test
+"Sounds like a great fit, happy to move forward whenever you are.",interested,test
+"This is right up my alley, let's talk details!",interested,train
+"Would love to be part of this, been following your brand for a bit now.",interested,train
+"Thanks for reaching out but I'll have to pass on this one, not really my niche.",not_interested,train
+"appreciate it but I'm not taking on new brand collabs rn, sorry!",not_interested,train
+"Not a good fit for my page, best of luck finding someone though.",not_interested,train
+"hard pass, I don't do sponsored posts for supplement brands anymore",not_interested,train
+"Thanks but no thanks, I've had bad experiences with similar campaigns before.",not_interested,train
+"Gonna sit this one out, doesn't match what my page is about these days.",not_interested,train
+"No thank you, I've actually stopped doing paid promotions altogether.",not_interested,train
+"Not really interested honestly, feels a bit too salesy for my audience.",not_interested,train
+"I'll pass, my manager already turned down a similar offer last month.",not_interested,test
+"Not for me, but feel free to check back in a few months.",not_interested,test
+"This isn't really my thing, wishing you luck with the campaign though.",not_interested,train
+"No, I don't think this fits my brand voice at all.",not_interested,train
+"sounds interesting, what's the budget looking like for a single reel?",pricing_query,train
+"before I say yes, what are you paying for a story + feed post combo?",pricing_query,train
+"What's your rate card look like? Also is this a flat fee or performance based?",pricing_query,train
+"how much is the deal for 3 TikToks + 1 YouTube short?",pricing_query,train
+"Depends on the pay tbh, what's on the table?",pricing_query,train
+"What's the compensation for this, is it cash or just product/gifting?",pricing_query,train
+"Can you share your usual rate range before we go further?",pricing_query,train
+"Is there a set budget or is it negotiable based on deliverables?",pricing_query,train
+"What are you offering for a 60-second dedicated video?",pricing_query,test
+"Just curious what the payment terms look like, upfront or after posting?",pricing_query,test
+"Do you pay per post or is this a monthly retainer kind of deal?",pricing_query,train
+"What's the rate for a carousel post vs a single image post?",pricing_query,train
+"I'm interested but super booked till end of the month, when do you need the content by?",availability_query,train
+"What's the timeline for this? I have a trip coming up so just checking dates.",availability_query,train
+"Can we push the posting date to next week? I have back to back shoots rn",availability_query,train
+"when would you need me to film, is there a hard deadline?",availability_query,train
+"I might have a slot open in 2 weeks, does that work with your campaign schedule?",availability_query,train
+"I could probably fit this in but need to know the shoot date first, is it flexible?",availability_query,train
+"Just got back from vacation so slightly behind, what's the latest you can accept content by?",availability_query,train
+"Are we talking about posting this month or is there more lead time?",availability_query,train
+"I have exams till the 15th, would that work with your posting schedule or is it too tight?",availability_query,test
+"Quick q, is this a one-time post or do you need ongoing content over a few weeks?",availability_query,test
+"I can do it but only after the 20th, my calendar's packed before that.",availability_query,train
+"I'm free starting next Monday, does that timeline work for the campaign?",availability_query,train
+"lol okay we'll see",unclear,train
+"haha maybe, depends",unclear,train
+"idk let me think about it",unclear,train
+"interesting 👀",unclear,train
+"hmm not sure yet, ping me later",unclear,train
+"we'll see how things go",unclear,train
+"lol this is random but ok",unclear,train
+"haha nice, anyway how's your day going",unclear,train
+"eh maybe, not really sure what you're offering exactly",unclear,test
+"k",unclear,test
+"lol who is this again",unclear,train
+"possibly, message my assistant I guess",unclear,train

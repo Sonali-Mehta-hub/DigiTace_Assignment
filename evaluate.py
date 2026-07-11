@@ -10,7 +10,7 @@ the classifier and reports:
 Run:
     python evaluate.py
 """
-
+import time 
 import csv
 import json
 import os
@@ -39,6 +39,7 @@ def main():
 
     for row in test_set:
         text, actual = row["text"], row["label"]
+        time.sleep(2)  # small delay to avoid rate limits
         try:
             result = classify_reply(text)
             predicted = result["intent"]
